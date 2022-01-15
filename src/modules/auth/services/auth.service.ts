@@ -118,7 +118,6 @@ export class AuthService {
 
       const googleClient = new OAuth2Client({ clientSecret, clientId });
       const result = await googleClient.getTokenInfo(access_token);
-      console.log(access_token, 'access_token');
       const resultAxios = await axios
         .create({
           baseURL: 'https://www.googleapis.com/oauth2/v2',

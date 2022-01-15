@@ -1,11 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMoviePhotoDto } from './dto/create-movie-photo.dto';
+import { InjectEntityManager } from '@nestjs/typeorm';
+import { MoviePhoto } from 'src/db/models/movie-photo.entity';
+import { EntityManager } from 'typeorm';
+import { RequestCreateMoviePhotoDto } from './dto/create-movie-photo.dto';
 import { UpdateMoviePhotoDto } from './dto/update-movie-photo.dto';
 
 @Injectable()
 export class MoviePhotosService {
-  create(createMoviePhotoDto: CreateMoviePhotoDto) {
-    return 'This action adds a new moviePhoto';
+  constructor(
+    @InjectEntityManager() private readonly dbManager: EntityManager,
+  ) {}
+  create(createMoviePhotoDto: RequestCreateMoviePhotoDto) {
+    const result = this.dbManager.save(MoviePhoto, createMoviePhotoDto);
+    return result;
   }
 
   findAll() {

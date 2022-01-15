@@ -1,15 +1,5 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { MoviesService } from './movies.service';
-import { UpdateMovieDto } from './dto/update-movie.dto';
 import { makeSuccessResponse } from '../common/classes/api.response';
 import {
   RequestCreateMovieDto,
@@ -28,27 +18,26 @@ export class MoviesController {
 
   @Get()
   async findAll(@Query() query: RequestGetMovieDto) {
-    const result = await this.moviesService.findAllMovie(query);
+    const result = await this.moviesService.findAllMovieFromTMDB(query);
     return makeSuccessResponse(result);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string, @Query() query: { language: string }) {
     try {
-      const result = await this.moviesService.findOne(+id);
+      const result = await this.moviesService.findOneTMDB(+id, query);
       return makeSuccessResponse(result);
     } catch (error) {
       throw error;
     }
   }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
-    return this.moviesService.update(+id, updateMovieDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.moviesService.remove(+id);
+  @Get(':id/cast')
+  async findCastByMovieTMDB(@Param('id') id: string) {
+    try {
+      const result = await this.moviesService.findCastByMovieTMDB(+id);
+      return makeSuccessResponse(result);
+    } catch (error) {
+      throw error;
+    }
   }
 }

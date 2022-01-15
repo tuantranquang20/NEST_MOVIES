@@ -16,7 +16,7 @@ export class Participation {
   actorId: number;
 
   @Column({ nullable: false })
-  userId: number;
+  moiveId: number;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

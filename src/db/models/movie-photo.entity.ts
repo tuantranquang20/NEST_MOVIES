@@ -16,13 +16,7 @@ export class MoviePhoto {
   movieId: number;
 
   @Column({ nullable: false })
-  coverImage: string;
-
-  @Column({ nullable: false })
-  avatar: string;
-
-  @Column({ nullable: false })
-  descriptionImage: string;
+  poster: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

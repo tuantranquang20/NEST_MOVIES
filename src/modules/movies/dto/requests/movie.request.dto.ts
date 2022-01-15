@@ -12,6 +12,8 @@ export class RequestGetMovieDto {
   orderDirection?: OrderDirection;
 
   name?: string;
+
+  language?: string;
 }
 
 export class RequestCreateMovieDto {
@@ -24,4 +26,6 @@ export class RequestCreateMovieDto {
   readonly trailer: string;
   readonly time: string;
   readonly session: string;
+  readonly coverImage: string;
+  readonly avatar: string;
 }

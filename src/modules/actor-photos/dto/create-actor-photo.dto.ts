@@ -1,1 +1,4 @@
-export class CreateActorPhotoDto {}
+export class RequestCreateActorPhotoDto {
+  readonly actorId: number;
+  readonly poster: string;
+}

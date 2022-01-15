@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { ActorPhotosService } from './actor-photos.service';
-import { CreateActorPhotoDto } from './dto/create-actor-photo.dto';
+import { RequestCreateActorPhotoDto } from './dto/create-actor-photo.dto';
 import { UpdateActorPhotoDto } from './dto/update-actor-photo.dto';
 
 @Controller('actor-photos')
@@ -8,7 +8,7 @@ export class ActorPhotosController {
   constructor(private readonly actorPhotosService: ActorPhotosService) {}
 
   @Post()
-  create(@Body() createActorPhotoDto: CreateActorPhotoDto) {
+  create(@Body() createActorPhotoDto: RequestCreateActorPhotoDto) {
     return this.actorPhotosService.create(createActorPhotoDto);
   }
 

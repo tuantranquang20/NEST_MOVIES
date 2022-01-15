@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateMoviePhotoDto } from './create-movie-photo.dto';
+import { RequestCreateMoviePhotoDto } from './create-movie-photo.dto';
 
-export class UpdateMoviePhotoDto extends PartialType(CreateMoviePhotoDto) {}
+export class UpdateMoviePhotoDto extends PartialType(RequestCreateMoviePhotoDto) {}

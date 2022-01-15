@@ -13,6 +13,6 @@
     "paths": {
       "~plugins/*": ["src/plugins/*"]
     },
-    "incremental": true
+    "incremental": true,
   }
 }

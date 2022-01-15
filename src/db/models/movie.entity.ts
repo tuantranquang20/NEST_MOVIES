@@ -15,28 +15,31 @@ export class Movie {
   @Column({ nullable: false })
   name: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
+  originalName: string;
+
+  @Column({ nullable: true })
   year: Date;
 
-  @Column()
+  @Column({ nullable: true, length: 5000 })
   description: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   IMDBPoint: string;
 
-  @Column({ nullable: false }) // phim hanh dong, ...
+  @Column({ nullable: true }) // phim hanh dong, ...
   type: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true }) // is coming
   status: boolean;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   nation: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   trailer: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   time: string;
 
   @Column({ nullable: true })
@@ -44,6 +47,12 @@ export class Movie {
 
   @Column({ nullable: true })
   director: string;
+
+  @Column({ nullable: true })
+  coverImage: string;
+
+  @Column({ nullable: true })
+  avatar: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

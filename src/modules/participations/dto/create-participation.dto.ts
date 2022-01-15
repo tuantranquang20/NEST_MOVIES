@@ -1,1 +1,4 @@
-export class CreateParticipationDto {}
+export class RequestCreateParticipationDto {
+  readonly actorId: number;
+  readonly userId: number;
+}

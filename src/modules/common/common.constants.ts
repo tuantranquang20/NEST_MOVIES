@@ -24,7 +24,7 @@ export const approved = { TRUE: 1, FALSE: 0 };
 
 export const DEFAULT_LIMIT_FOR_DROPDOWN = 1000;
 export const DEFAULT_LIMIT_FOR_PAGINATION = 10;
-export const DEFAULT_ORDER_BY = 'createdAt';
+export const DEFAULT_ORDER_BY = 'popularity';
 export const DEFAULT_ORDER_DIRECTION = 'desc';
 export type ORDER_DIRECTION = 'ASC' | 'DESC';
 

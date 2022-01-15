@@ -16,20 +16,26 @@ export class Actor {
   @Column({ nullable: false })
   name: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   gender: UserGender;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   dateOfBirth: Date;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   description: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   nation: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   type: string;
+
+  @Column({ nullable: true })
+  coverImage: string;
+
+  @Column({ nullable: false })
+  avatar: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
