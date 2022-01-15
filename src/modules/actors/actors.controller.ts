@@ -32,11 +32,6 @@ export class ActorsController {
     return this.actorsService.findAll();
   }
 
-  @Get('/seed')
-  seed() {
-    return this.actorsService.seed();
-  }
-
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
