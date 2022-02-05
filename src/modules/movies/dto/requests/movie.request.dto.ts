@@ -1,12 +1,12 @@
 import { OrderDirection } from 'src/modules/common/common.constants';
 
 // export const CreateMovieSchema = Joi.object().keys({}); // TODO
-
-export class RequestGetMovieDto {
+export class RequestBodyDto {
   page?: number;
 
   limit?: number;
-
+}
+export class RequestGetMovieDto extends RequestBodyDto {
   orderBy?: string;
 
   orderDirection?: OrderDirection;

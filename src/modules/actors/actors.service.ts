@@ -39,6 +39,17 @@ export class ActorsService {
     }
   }
 
+  async findMovieByActor(actorId: number) {
+    try {
+      const result = await axiosInstance.get(
+        `/person/${actorId}/movie_credits?api_key=${API_KEY}`,
+      );
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   update(id: number, updateActorDto: UpdateActorDto) {
     return `This action updates a #${id} actor`;
   }

@@ -75,4 +75,37 @@ export class AuthController {
       throw new InternalServerErrorException(error);
     }
   }
+  @Post('loginManual')
+  async loginManual(@Body() body: { email: string; password: string }) {
+    try {
+      const user = await this.authService.findUserByEmail(body.email);
+      if (user.password) {
+        const isCorrectPassword = await user.validatePassword(body.password);
+        if (!isCorrectPassword) {
+          return makeErrorResponse(
+            HttpStatus.BAD_REQUEST,
+            'Khong tim thay tai khoan',
+            [],
+          );
+        }
+      }
+      const {
+        user: profile,
+        accessToken,
+        refreshToken,
+      } = await this.authService.loginManual(user);
+      return makeSuccessResponse({ profile, accessToken, refreshToken });
+    } catch (error) {
+      throw error;
+    }
+  }
+  @Post('signUp')
+  async signUp(@Body() body: { email: string; password: string }) {
+    try {
+      const result = await this.authService.signUp(body);
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

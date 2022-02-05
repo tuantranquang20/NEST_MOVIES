@@ -7,11 +7,14 @@ import {
   Param,
   Delete,
   InternalServerErrorException,
+  Query,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { RequestCreatePostDto } from './dto/requests/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
+import { UpdatePostDto } from './dto/requests/update-post.dto';
 import { makeSuccessResponse } from '../common/classes/api.response';
+import { RequestBodyDto } from '../movies/dto/requests/movie.request.dto';
+import { PostsResource } from './dto/responses/post.response';
 
 @Controller('posts')
 export class PostsController {
@@ -37,9 +40,15 @@ export class PostsController {
     }
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postsService.findOne(+id);
+  @Get(':id') // id movie
+  async findAllPosts(@Param('id') id: string, @Query() body: RequestBodyDto) {
+    const { items, totalItems } = await this.postsService.findAllPosts(
+      +id,
+      body,
+    );
+    return makeSuccessResponse(
+      PostsResource.collectionWithPaginate(items, totalItems),
+    );
   }
 
   @Patch(':id')
