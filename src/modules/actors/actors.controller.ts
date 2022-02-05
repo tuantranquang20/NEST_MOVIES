@@ -41,6 +41,15 @@ export class ActorsController {
       throw new InternalServerErrorException(error);
     }
   }
+  @Get(':id/movies')
+  async findMovieByActor(@Param('id') id: string) {
+    try {
+      const result = await this.actorsService.findMovieByActor(+id);
+      return makeSuccessResponse(result);
+    } catch (error) {
+      throw new InternalServerErrorException(error);
+    }
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateActorDto: UpdateActorDto) {

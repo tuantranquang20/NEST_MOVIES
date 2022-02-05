@@ -33,6 +33,7 @@ export const MIN_PAGE_SIZE = 0;
 export const MIN_PAGE = 1;
 export const MAX_PAGE_SIZE = 10000;
 export const MAX_PAGE = 10000;
+export const DEFAULT_TOTAL_ITEM = 0;
 
 export const BIRTHDAY_MIN_DATE = '1800-01-01';
 

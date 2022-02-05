@@ -174,4 +174,39 @@ export class AuthService {
       throw error;
     }
   }
+  async loginManual(user: User) {
+    try {
+      const accessToken = this.generateAccessToken(user);
+      const hashToken = generateHashToken(user.id);
+      const refreshToken = this.generateRefreshToken(user, hashToken);
+      await this.dbManager.transaction(async (transactionManager) => {
+        // add refresh token to user_tokens table.
+        await transactionManager.save(UserToken, {
+          user,
+          token: refreshToken.token,
+          hashToken,
+        });
+        // update lastLoginAt for user
+        await transactionManager.update(
+          User,
+          { id: user.id },
+          { lastLoginAt: new Date() },
+        );
+      });
+
+      return {
+        user,
+        accessToken,
+        refreshToken,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async signUp(body: { email: string; password: string }) {
+    const entity = Object.assign(new User(), body);
+    const result = await this.dbManager.save(User, entity);
+    return result;
+  }
 }

@@ -19,6 +19,9 @@ export class User {
   @Column({ length: 255, nullable: false })
   email: string;
 
+  @Column({ length: 255, nullable: true })
+  password: string;
+
   @Column({ type: 'timestamp', nullable: true })
   lastLoginAt: Date;
 
@@ -39,4 +42,16 @@ export class User {
 
   @Column({ nullable: true })
   deletedBy: number;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  hashPassword() {
+    if (this.password) {
+      this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10));
+    }
+  }
+
+  async validatePassword(password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.password);
+  }
 }

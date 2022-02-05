@@ -48,9 +48,9 @@ export class Post {
   @Column({ nullable: true })
   deletedBy: number;
 
-  @ManyToOne(() => Movie, (movie) => movie.id)
-  @JoinColumn({
-    name: 'movieId',
-  })
-  movie: Movie;
+  // @ManyToOne(() => Movie, (movie) => movie.id)
+  // @JoinColumn({
+  //   name: 'movieId',
+  // })
+  // movie: Movie;
 }
