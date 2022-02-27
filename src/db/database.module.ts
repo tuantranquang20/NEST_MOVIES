@@ -29,6 +29,7 @@ import { ConfigService } from '../modules/common/services/config.service';
             logPath: 'logs/query.log',
           }),
           synchronize: true,
+          charset: 'utf8mb4_unicode_ci'
         };
         if (socketPath) {
           Object.assign(options, { socketPath });
