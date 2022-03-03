@@ -7,9 +7,11 @@ import {
   BeforeInsert,
   BeforeUpdate,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 import * as bcrypt from 'bcrypt';
+import { Post } from './post.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -18,6 +20,12 @@ export class User {
 
   @Column({ length: 255, nullable: false })
   email: string;
+
+  @Column({ length: 255, nullable: true })
+  name: string;
+
+  @Column({ length: 255, nullable: true })
+  image: string;
 
   @Column({ length: 255, nullable: true })
   password: string;
@@ -54,4 +62,7 @@ export class User {
   async validatePassword(password: string): Promise<boolean> {
     return bcrypt.compare(password, this.password);
   }
+
+  @OneToMany(() => Post, (post) => post.user)
+  posts: Post[];
 }

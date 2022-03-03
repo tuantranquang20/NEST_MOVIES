@@ -2,14 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import * as moment from 'moment';
 import { Post } from 'src/db/models/post.entity';
-import { Brackets, EntityManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { RequestBodyDto } from '../movies/dto/requests/movie.request.dto';
 import { RequestCreatePostDto } from './dto/requests/create-post.dto';
 import { UpdatePostDto } from './dto/requests/update-post.dto';
-import { paginateRaw } from 'nestjs-typeorm-paginate';
 import {
   DEFAULT_LIMIT_FOR_PAGINATION,
-  DEFAULT_TOTAL_ITEM,
   MIN_PAGE,
 } from '../common/common.constants';
 
@@ -38,25 +36,30 @@ export class PostsService {
   async findAllPosts(id: number, body: RequestBodyDto) {
     const { limit = DEFAULT_LIMIT_FOR_PAGINATION, page = MIN_PAGE } = body;
     try {
-      const posts = await this.dbManager
-        .createQueryBuilder(Post, 'post')
-        .where((queryBuilder) => {
-          queryBuilder.andWhere(
-            new Brackets((qb) => {
-              qb.where('post.movieId = :id', {
-                id: id,
-              });
-            }),
-          );
-        });
-      const postsAndPage = await paginateRaw(posts, {
-        limit: limit,
-        page: page,
+      // const posts = await this.dbManager
+      //   .createQueryBuilder(Post, 'post')
+      //   .where((queryBuilder) => {
+      //     queryBuilder.andWhere(
+      //       new Brackets((qb) => {
+      //         qb.where('post.movieId = :id', {
+      //           id: id,
+      //         });
+      //       }),
+      //     );
+      //   });
+      const result = await this.dbManager.find(Post, {
+        where: {
+          movieId: id,
+        },
+        skip: limit * (page - 1) + 1,
+        take: limit,
       });
-      return {
-        items: postsAndPage?.items,
-        totalItems: postsAndPage?.meta?.totalItems || DEFAULT_TOTAL_ITEM,
-      };
+      // console.log(result, 'result');
+      // const postsAndPage = await paginateRaw(posts, {
+      //   limit: limit,
+      //   page: page,
+      // });
+      return result;
     } catch (error) {
       throw error;
     }

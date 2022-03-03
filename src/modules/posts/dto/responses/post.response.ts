@@ -3,7 +3,6 @@ import { Resource } from '../../../common/resources/resources';
 export class PostsResource extends Resource<any> {
   toArray() {
     const _self = this as this & any;
-    console.log(_self);
     return {
       id: _self.post_id || null,
       userId: _self.post_userId || null,

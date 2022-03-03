@@ -6,6 +6,7 @@ import {
   InternalServerErrorException,
   Post,
   Query,
+  Request,
 } from '@nestjs/common';
 import { User } from 'src/db/models/user.entity';
 import {
@@ -106,6 +107,15 @@ export class AuthController {
       return result;
     } catch (error) {
       throw error;
+    }
+  }
+  @Post('logout')
+  async logout(@Request() req) {
+    try {
+      const result = await this.authService.logout(req.user);
+      return result;
+    } catch (error) {
+      throw new InternalServerErrorException(error);
     }
   }
 }

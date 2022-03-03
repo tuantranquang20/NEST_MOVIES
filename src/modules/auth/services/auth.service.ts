@@ -206,7 +206,24 @@ export class AuthService {
 
   async signUp(body: { email: string; password: string }) {
     const entity = Object.assign(new User(), body);
-    const result = await this.dbManager.save(User, entity);
-    return result;
+    const hasUser = await this.dbManager.findOne(User, {
+      where: {
+        email: body.email,
+      },
+    });
+    if (!hasUser) {
+      return await this.dbManager.save(User, entity);
+    }
+    return { email: body.email, password: body.password };
+  }
+
+  async logout(user: User): Promise<boolean> {
+    try {
+      // delete old refresh token
+      await this.dbManager.delete(UserToken, { user });
+      return true;
+    } catch (error) {
+      throw error;
+    }
   }
 }

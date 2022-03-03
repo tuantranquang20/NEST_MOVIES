@@ -44,7 +44,7 @@ export class MoviesService {
       page = MIN_PAGE,
     } = query;
     const result = (await axiosInstance.get(
-      `/discover/movie?api_key=${API_KEY}&page=${page}&language=${language}&sort_by=${orderBy}.${orderDirection}&without_keywords=${name}`,
+      `/discover/movie?api_key=${API_KEY}&page=${page}&language=${language}&sort_by=${orderBy}.${orderDirection}&keywords=${name}`,
     )) as IBodyResponseTMDB;
     return {
       item: result?.results,

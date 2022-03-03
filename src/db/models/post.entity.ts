@@ -7,8 +7,10 @@ import {
   DeleteDateColumn,
   ManyToOne,
   JoinColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
-import { Movie } from './movie.entity';
+import { User } from './user.entity';
 
 @Entity({ name: 'posts' })
 export class Post {
@@ -21,8 +23,11 @@ export class Post {
   @Column({ nullable: false })
   userId: number;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, type: 'nvarchar' })
   content: string;
+
+  @Column({ nullable: false, type: 'nvarchar' })
+  title: string;
 
   @Column({ nullable: true })
   time: Date;
@@ -53,4 +58,7 @@ export class Post {
   //   name: 'movieId',
   // })
   // movie: Movie;
+
+  @ManyToOne(() => User, (user) => user.posts, { eager: true })
+  user: User;
 }
