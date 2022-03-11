@@ -42,8 +42,15 @@ export class PostsController {
 
   @Get(':id') // id movie
   async findAllPosts(@Param('id') id: string, @Query() body: RequestBodyDto) {
-    const result = await this.postsService.findAllPosts(+id, body);
-    return makeSuccessResponse(result);
+    // const result = await this.postsService.findAllPosts(+id, body);
+    // return makeSuccessResponse(result);
+    const { items, totalItems } = await this.postsService.findAllPosts(
+      +id,
+      body,
+    );
+    return makeSuccessResponse(
+      PostsResource.collectionWithPaginate(items, totalItems),
+    );
   }
 
   @Patch(':id')
